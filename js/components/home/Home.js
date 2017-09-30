@@ -202,6 +202,10 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 18
     },
+    listContentTopTime: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     listContentTopTimeText: {
         color: '#999',
         fontSize: 12

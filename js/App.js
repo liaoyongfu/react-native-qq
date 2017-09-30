@@ -16,7 +16,7 @@ const AwesomeProject = StackNavigator({
         screen: Home
     }
 }, {
-    initialRouteName: 'Home'
+    // initialRouteName: 'Home'
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
