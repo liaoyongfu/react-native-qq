@@ -7,13 +7,13 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    Button,
     ImageBackground,
     PixelRatio,
     StatusBar
 } from 'react-native';
 import PublicStyle from '../../css';
 import FontAwesome  from 'react-native-vector-icons/FontAwesome';
+import Button from 'apsl-react-native-button'
 
 class Login extends React.Component {
     static navigationOptions = {
@@ -41,15 +41,15 @@ class Login extends React.Component {
                         </View>
                     </View>
                     <View>
-                        <TextInput style={styles.textInput} placeholder={'请输入用户名'} value={'893753543'}/>
+                        <TextInput underlineColorAndroid="transparent" style={styles.textInput} placeholder={'请输入用户名'} value={'893753543'}/>
                     </View>
                     <View>
-                        <TextInput style={styles.textInput} placeholder={'请输入密码'} value={'**********'}/>
+                        <TextInput underlineColorAndroid="transparent" style={styles.textInput} placeholder={'请输入密码'} value={'**********'}/>
                     </View>
-                    <View style={styles.loginBtn}>
-                        <Button style={styles.btn} color="#fff" title="登录" onPress={() => {
+                    <View>
+                        <Button style={styles.loginBtn} textStyle={{color: '#fff'}} onPress={() => {
                             navigate('Home');
-                        }}/>
+                        }}>登录</Button>
                     </View>
                 </View>
             </ImageBackground>
@@ -76,18 +76,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     loginBtn: {
-        backgroundColor: '#508dff',
-        borderRadius: 5,
-        marginTop: 30
-    },
-    btn: {
-        borderRadius: 5
+        backgroundColor: '#4dafff',
+        borderWidth: 0,
+        marginTop: 15
     },
     textInput: {
         borderBottomWidth: 1 / PixelRatio.get(),
         borderBottomColor: '#fff',
-        color: '#fff',
         marginBottom: 5,
+        color: '#fff',
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 0,

@@ -10,21 +10,24 @@ import {
     Image,
     PixelRatio,
     Button,
-    FlatList
+    FlatList,
+    TouchableWithoutFeedback
 } from 'react-native';
+import { DrawerNavigator } from 'react-navigation';
 import PublicStyle from '../../css';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
+import SideMenuScreen from './SideMenu';
 
-class Home extends React.Component{
+class HomeScreen extends React.Component{
     constructor(){
         super();
     }
 
     static navigationOptions = {
-        title: '首页',
+        drawerLabel: '首页',
         header: null
     };
 
@@ -50,12 +53,15 @@ class Home extends React.Component{
     }
 
     render(){
+        let { navigate } = this.props.navigation;
         return (
             <View style={[PublicStyle.flex]}>
                 <StatusBar translucent={true}/>
                 <LinearGradient style={[styles.header]} colors={['#508dff', '#3ab8fe']} start={{x: 0, y: 0}} end={{x: 0.5, y: 0}}>
                     <View style={[PublicStyle.vhCenter, styles.headerLeft]}>
-                        <Image source={require('../../../image/vator.jpg')} style={{width: 30, height: 30, borderRadius: 15}}/>
+                        <TouchableWithoutFeedback onPress={() => navigate('DrawerOpen')}>
+                            <Image source={require('../../../image/vator.jpg')} style={{width: 30, height: 30, borderRadius: 15}}/>
+                        </TouchableWithoutFeedback>
                     </View>
                     <View style={[PublicStyle.flex, PublicStyle.vhCenter]}>
                         <Text style={[styles.title]}>消息</Text>
@@ -108,6 +114,21 @@ class Home extends React.Component{
                                 },
                                 {
                                     label: '张三',
+                                    lastMessage: '张三：加油加油',
+                                    time: '下午5:53'
+                                },
+                                {
+                                    label: '张三1',
+                                    lastMessage: '张三：加油加油',
+                                    time: '下午5:53'
+                                },
+                                {
+                                    label: '张三2',
+                                    lastMessage: '张三：加油加油',
+                                    time: '下午5:53'
+                                },
+                                {
+                                    label: '张三3',
                                     lastMessage: '张三：加油加油',
                                     time: '下午5:53'
                                 }
@@ -219,4 +240,13 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Home;
+const HomePage = DrawerNavigator({
+    Home: {
+        screen: HomeScreen
+    },
+    Notifications: {
+        screen: SideMenuScreen
+    }
+});
+
+export default HomePage;
