@@ -32,7 +32,7 @@ class Home extends React.Component{
         return (
             <View style={styles.itemBox}>
                 <View style={[styles.listIcon]}>
-                    <Image source={require('../../../image/vator.jpg')} style={{width: 40, height: 40, borderRadius: 40}}/>
+                    <Image source={require('../../../image/vator.jpg')} style={{width: 40, height: 40, borderRadius: 20}}/>
                 </View>
                 <View style={[styles.listContent]}>
                     <View style={styles.listContentTop}>
@@ -55,7 +55,7 @@ class Home extends React.Component{
                 <StatusBar translucent={true}/>
                 <LinearGradient style={[styles.header]} colors={['#508dff', '#3ab8fe']} start={{x: 0, y: 0}} end={{x: 0.5, y: 0}}>
                     <View style={[PublicStyle.vhCenter, styles.headerLeft]}>
-                        <Image source={require('../../../image/vator.jpg')} style={{width: 30, height: 30, borderRadius: 30}}/>
+                        <Image source={require('../../../image/vator.jpg')} style={{width: 30, height: 30, borderRadius: 15}}/>
                     </View>
                     <View style={[PublicStyle.flex, PublicStyle.vhCenter]}>
                         <Text style={[styles.title]}>消息</Text>
@@ -119,15 +119,15 @@ class Home extends React.Component{
                 </View>
                 <View style={[styles.footer]}>
                     <View style={[PublicStyle.flex, PublicStyle.vhCenter]}>
-                        <FontAwesome name="smile-o" color="#7f8393" size={20}/>
+                        <FontAwesome name="smile-o" color="#7f8393" size={24}/>
                         <Text style={styles.footerText}>消息</Text>
                     </View>
                     <View style={[PublicStyle.flex, PublicStyle.vhCenter]}>
-                        <FontAwesome name="user-o" color="#7f8393" size={20}/>
+                        <FontAwesome name="user-o" color="#7f8393" size={24}/>
                         <Text style={styles.footerText}>联系人</Text>
                     </View>
                     <View style={[PublicStyle.flex, PublicStyle.vhCenter]}>
-                        <FontAwesome name="star-o" color="#7f8393" size={20}/>
+                        <FontAwesome name="star-o" color="#7f8393" size={24}/>
                         <Text style={styles.footerText}>动态</Text>
                     </View>
                 </View>
@@ -138,9 +138,9 @@ class Home extends React.Component{
 
 const styles = StyleSheet.create({
     header: {
-        height: 40,
+        height: 50,
         flexDirection: 'row',
-        backgroundColor: '#29c1fe'
+        backgroundColor: 'transparent'
     },
     headerLeft: {
         width: 60
@@ -156,26 +156,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     footer: {
-        height: 40,
+        height: 50,
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderTopWidth: 1 / PixelRatio.get(),
         borderTopColor: '#ccc'
     },
     footerText: {
-        fontSize: 10
+        fontSize: 10,
+        marginTop: 3
     },
     addIcon: {
         color: '#fff',
-        fontSize: 40
+        fontSize: 20
     },
     searchBar: {
         flexDirection: 'row',
         justifyContent: 'center',
-        height: 30,
+        height: 26,
         backgroundColor: '#eeeff3',
         borderRadius: 3,
-        margin: 8
+        margin: 10
     },
     itemBox: {
         flexDirection: 'row'
@@ -184,7 +185,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        overflow: 'hidden'
     },
     listContent: {
         flex: 1,
@@ -195,12 +197,13 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc'
     },
     listContentTop: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 5
     },
     listContentTopText: {
         flex: 1,
         color: '#000',
-        fontSize: 18
+        fontSize: 16
     },
     listContentTopTime: {
         justifyContent: 'center',
@@ -211,7 +214,8 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     listLastMessage: {
-        fontSize: 14
+        fontSize: 12,
+        color: '#666'
     }
 });
 
