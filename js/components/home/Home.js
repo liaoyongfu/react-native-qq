@@ -11,7 +11,7 @@ import {
     PixelRatio,
     Button,
     FlatList,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
 } from 'react-native';
 import {DrawerNavigator} from 'react-navigation';
 import PublicStyle from '../../css';
@@ -158,11 +158,13 @@ class HomeScreen extends React.Component {
                 {activeIndex === 1 && (
                     <View style={[PublicStyle.flex, styles.content]}>
                         <SearchBar/>
-                        <View>
-                            <Text>新朋友</Text>
-                            <FontAwesome name="angle-right"/>
+                        <View style={styles.newFriend}>
+                            <Text style={styles.newFriendLabel}>新朋友</Text>
+                            <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
                         </View>
+                        <View style={styles.placeholderView}/>
                         <ScrollableTabView
+                            style={styles.friendList}
                             renderTabBar={() => <ScrollableTabBar/>}
                             tabBarUnderlineStyle={{
                                 backgroundColor: "#12b7f5"
@@ -170,12 +172,12 @@ class HomeScreen extends React.Component {
                             initialPage={0}
                             tabBarActiveTextColor='#12b7f5'
                         >
-                            <Text tabLabel='好友'/>
-                            <Text tabLabel='群'/>
-                            <Text tabLabel='多人聊天'/>
-                            <Text tabLabel='设备'/>
-                            <Text tabLabel='通讯录'/>
-                            <Text tabLabel='公众号'/>
+                            <Text tabLabel='好友'>好友</Text>
+                            <Text tabLabel='群'>群</Text>
+                            <Text tabLabel='多人聊天'>多人聊天</Text>
+                            <Text tabLabel='设备'>设备</Text>
+                            <Text tabLabel='通讯录'>通讯录</Text>
+                            <Text tabLabel='公众号'>公众号</Text>
                         </ScrollableTabView>
                     </View>
                 )}
@@ -291,6 +293,32 @@ const styles = StyleSheet.create({
     listLastMessage: {
         fontSize: 12,
         color: '#666'
+    },
+    newFriend: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderTopWidth: 1 / PixelRatio.get(),
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderColor: '#ddd',
+        padding: 10,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    newFriendLabel: {
+        color: '#000'
+    },
+    newFriendIcon: {
+        fontSize: 20,
+        color: '#c7c7c7'
+    },
+    placeholderView: {
+        height: 10,
+        backgroundColor: '#eee'
+    },
+    friendList: {
+        borderTopWidth: 1 / PixelRatio.get(),
+        borderTopColor: '#ddd'
     }
 });
 
