@@ -12,5 +12,8 @@ export default StyleSheet.create({
     vhCenter: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    box: {
+        backgroundColor: '#fff'
     }
 });

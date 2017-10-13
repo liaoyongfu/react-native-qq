@@ -12,10 +12,10 @@ import PublicStyle from '../../css';
 
 class SearchBar extends React.Component{
     render(){
-        let { placeholder } = this.props;
+        let { placeholder, style, ...props } = this.props;
 
         return (
-            <View style={[PublicStyle.vhCenter, styles.searchBar]}>
+            <View style={[PublicStyle.vhCenter, styles.searchBar]} {...props}>
                 <View style={{marginRight: 5}}>
                     <FontAwesome name="search" color='#c7c7cc'/>
                 </View>

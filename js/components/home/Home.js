@@ -22,14 +22,91 @@ import LinearGradient from 'react-native-linear-gradient';
 import SideMenuScreen from './components/SideMenu';
 import SearchBar from '../../public/SearchBar/SearchBar';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import ListItem from './components/ListItem';
 
 class HomeScreen extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            activeIndex: 0
+            activeIndex: 0,
+            friendList: [
+                {
+                    label: '特别关心',
+                    onlineNum: 0,
+                    countNum: 0,
+                    list: []
+                },
+                {
+                    label: '亲人',
+                    onlineNum: 3,
+                    countNum: 4,
+                    list: [
+                        {
+                            label: '葱头',
+                            loginType: 'TIM在线',
+                            sign: '人生跟年龄没关系，跟经历有关系，一旦经历了，人生便不一样了！'
+                        },
+                        {
+                            label: '浮沉',
+                            loginType: 'iPhone在线',
+                            sign: '。。。'
+                        },
+                        {
+                            label: '光',
+                            loginType: '4G在线',
+                            sign: ''
+                        }
+                    ]
+                },
+                {
+                    label: '我的好友',
+                    onlineNum: 12,
+                    countNum: 27,
+                    list: [
+                        {
+                            label: '葱头',
+                            loginType: 'TIM在线',
+                            sign: '人生跟年龄没关系，跟经历有关系，一旦经历了，人生便不一样了！'
+                        },
+                        {
+                            label: '浮沉',
+                            loginType: 'iPhone在线',
+                            sign: '。。。'
+                        },
+                        {
+                            label: '光',
+                            loginType: '4G在线',
+                            sign: ''
+                        }
+                    ]
+                },
+                {
+                    label: '同事',
+                    onlineNum: 33,
+                    countNum: 44,
+                    list: [
+                        {
+                            label: '葱头',
+                            loginType: 'TIM在线',
+                            sign: '人生跟年龄没关系，跟经历有关系，一旦经历了，人生便不一样了！'
+                        },
+                        {
+                            label: '浮沉',
+                            loginType: 'iPhone在线',
+                            sign: '。。。'
+                        },
+                        {
+                            label: '光',
+                            loginType: '4G在线',
+                            sign: ''
+                        }
+                    ]
+                }
+            ]
         };
+
+        this.toggleExpand = this.toggleExpand.bind(this);
     }
 
     static navigationOptions = {
@@ -65,11 +142,28 @@ class HomeScreen extends React.Component {
         );
     }
 
+    toggleExpand(label){
+        let { friendList } = this.state;
+
+        let findIndex = friendList.findIndex(item => item.label === label);
+
+        this.setState({
+            friendList: [
+                ...friendList.slice(0, findIndex),
+                {
+                    ...friendList[findIndex],
+                    expanded: !friendList[findIndex].expanded
+                },
+                ...friendList.slice(findIndex + 1)
+            ]
+        });
+    }
+
     render() {
-        let {activeIndex} = this.state;
+        let {activeIndex, friendList} = this.state;
         let {navigate} = this.props.navigation;
         return (
-            <View style={[PublicStyle.flex]}>
+            <View style={[PublicStyle.flex, styles.body]}>
                 <StatusBar translucent={true}/>
                 <LinearGradient style={[styles.header]} colors={['#508dff', '#3ab8fe']} start={{x: 0, y: 0}}
                                 end={{x: 0.5, y: 0}}>
@@ -93,7 +187,7 @@ class HomeScreen extends React.Component {
                     </View>
                 </LinearGradient>
                 {activeIndex === 0 && (
-                    <View style={[PublicStyle.flex, styles.content]}>
+                    <View style={[PublicStyle.flex, styles.content, PublicStyle.box]}>
                         <SearchBar/>
                         <View style={[PublicStyle.flex]}>
                             <FlatList
@@ -157,14 +251,15 @@ class HomeScreen extends React.Component {
                 )}
                 {activeIndex === 1 && (
                     <View style={[PublicStyle.flex, styles.content]}>
-                        <SearchBar/>
-                        <View style={styles.newFriend}>
-                            <Text style={styles.newFriendLabel}>新朋友</Text>
-                            <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
+                        <View style={[PublicStyle.box, {marginBottom: 20}]}>
+                            <SearchBar/>
+                            <View style={styles.newFriend}>
+                                <Text style={styles.newFriendLabel}>新朋友</Text>
+                                <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
+                            </View>
                         </View>
-                        <View style={styles.placeholderView}/>
                         <ScrollableTabView
-                            style={styles.friendList}
+                            style={[styles.friendList, PublicStyle.box]}
                             renderTabBar={() => <ScrollableTabBar/>}
                             tabBarUnderlineStyle={{
                                 backgroundColor: "#12b7f5"
@@ -172,7 +267,15 @@ class HomeScreen extends React.Component {
                             initialPage={0}
                             tabBarActiveTextColor='#12b7f5'
                         >
-                            <Text tabLabel='好友'>好友</Text>
+                            <View tabLabel='好友'>
+                                <FlatList
+                                    data={friendList}
+                                    renderItem={({item}) => (
+                                        <ListItem toggleExpand={this.toggleExpand} item={item}/>
+                                    )}
+                                    keyExtractor={(item, index) => index}
+                                />
+                            </View>
                             <Text tabLabel='群'>群</Text>
                             <Text tabLabel='多人聊天'>多人聊天</Text>
                             <Text tabLabel='设备'>设备</Text>
@@ -183,7 +286,60 @@ class HomeScreen extends React.Component {
                 )}
                 {activeIndex === 2 && (
                     <View style={[PublicStyle.flex, styles.content]}>
-                        <SearchBar placeholder='大家都在搜：袁泉完胜马伊琍'/>
+                        <View style={[PublicStyle.box, styles.dtTop]}>
+                            <SearchBar placeholder='大家都在搜：袁泉完胜马伊琍'/>
+                            <View style={styles.dtType}>
+                                <View style={styles.dtTypeItem}>
+                                    <FontAwesome style={[styles.dtTypeItemIcon, styles.hydtIcon]} name="star"/>
+                                    <Text style={styles.dtTypeLabel}>好友动态</Text>
+                                </View>
+                                <View style={styles.dtTypeItem}>
+                                    <FontAwesome style={[styles.dtTypeItemIcon, styles.fjIcon]} name="map-marker"/>
+                                    <Text style={styles.dtTypeLabel}>附近</Text>
+                                </View>
+                                <View style={styles.dtTypeItem}>
+                                    <FontAwesome style={[styles.dtTypeItemIcon, styles.xqblIcon]} name="heart"/>
+                                    <Text style={styles.dtTypeLabel}>兴趣部落</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[PublicStyle.box, styles.dtListOne]}>
+                            <FlatList
+                                data={[
+                                    {
+                                        label: '日迹'
+                                    },
+                                    {
+                                        label: '看点'
+                                    },
+                                    {
+                                        label: '动漫'
+                                    },
+                                    {
+                                        label: '音乐'
+                                    },
+                                    {
+                                        label: '热门活动'
+                                    }
+                                ]}
+                                renderItem={({item}) => <Text>{item.label}</Text>}
+                                keyExtractor={(item, index) => index}
+                            />
+                        </View>
+                        <View style={[PublicStyle.box, styles.dtListTwo]}>
+                            <FlatList
+                                data={[
+                                    {
+                                        label: '运动'
+                                    },
+                                    {
+                                        label: '同城服务'
+                                    }
+                                ]}
+                                renderItem={({item}) => <Text>{item.label}</Text>}
+                                keyExtractor={(item, index) => index}
+                            />
+                        </View>
                     </View>
                 )}
                 <View style={[styles.footer]}>
@@ -215,6 +371,9 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    body: {
+        backgroundColor: '#f7f7f9'
+    },
     header: {
         height: 50,
         flexDirection: 'row',
@@ -231,7 +390,6 @@ const styles = StyleSheet.create({
         width: 40
     },
     content: {
-        backgroundColor: '#fff'
     },
     footer: {
         height: 50,
@@ -318,7 +476,52 @@ const styles = StyleSheet.create({
     },
     friendList: {
         borderTopWidth: 1 / PixelRatio.get(),
-        borderTopColor: '#ddd'
+        borderTopColor: '#ddd',
+        padding: 0
+    },
+    dtTop: {
+        marginBottom: 20,
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomColor: '#ddd'
+    },
+    dtListOne: {
+        marginBottom: 20,
+        borderTopWidth: 1 / PixelRatio.get(),
+        borderTopColor: '#ddd',
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomColor: '#ddd'
+    },
+    dtListTwo: {
+        borderTopWidth: 1 / PixelRatio.get(),
+        borderTopColor: '#ddd',
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomColor: '#ddd'
+    },
+    dtType: {
+        flexDirection: 'row'
+    },
+    dtTypeItem: {
+        flex: 1,
+        paddingTop: 5,
+        paddingBottom: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    dtTypeItemIcon: {
+        fontSize: 24
+    },
+    hydtIcon: {
+        color: '#ffa5a0'
+    },
+    fjIcon: {
+        color: '#fbd04f'
+    },
+    xqblIcon: {
+        color: '#f25d5d'
+    },
+    dtTypeLabel: {
+        color: '#000',
+        fontSize: 14
     }
 });
 
