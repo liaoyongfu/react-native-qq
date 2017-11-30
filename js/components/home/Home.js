@@ -322,7 +322,17 @@ class HomeScreen extends React.Component {
                                         label: '热门活动'
                                     }
                                 ]}
-                                renderItem={({item}) => <Text>{item.label}</Text>}
+                                renderItem={({item}) => (
+                                    <View style={[styles.dtList]}>
+                                        <View style={[styles.dtListLeft]}>
+                                            <FontAwesome style={[styles.dtListLeftIcon]} name="heart"/>
+                                        </View>
+                                        <View style={[styles.dtListRight]}>
+                                            <Text>{item.label}</Text>
+                                            <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
+                                        </View>
+                                    </View>
+                                )}
                                 keyExtractor={(item, index) => index}
                             />
                         </View>
@@ -336,7 +346,17 @@ class HomeScreen extends React.Component {
                                         label: '同城服务'
                                     }
                                 ]}
-                                renderItem={({item}) => <Text>{item.label}</Text>}
+                                renderItem={({item}) => (
+                                    <View style={[styles.dtList]}>
+                                        <View style={[styles.dtListLeft]}>
+                                            <FontAwesome style={[styles.dtListLeftIcon]} name="heart"/>
+                                        </View>
+                                        <View style={[styles.dtListRight]}>
+                                            <Text>{item.label}</Text>
+                                            <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
+                                        </View>
+                                    </View>
+                                )}
                                 keyExtractor={(item, index) => index}
                             />
                         </View>
@@ -490,6 +510,28 @@ const styles = StyleSheet.create({
         borderTopColor: '#ddd',
         borderBottomWidth: 1 / PixelRatio.get(),
         borderBottomColor: '#ddd'
+    },
+    dtList: {
+        flexDirection: 'row'
+    },
+    dtListLeft: {
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    dtListLeftIcon: {
+        color: '#ff6600',
+        fontSize: 18
+    },
+    dtListRight: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1 /PixelRatio.get(),
+        borderBottomColor: '#ddd',
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingRight: 15
     },
     dtListTwo: {
         borderTopWidth: 1 / PixelRatio.get(),
