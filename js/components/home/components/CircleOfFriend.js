@@ -120,6 +120,10 @@ class CircleOfFriend extends React.Component {
 
 const styles = StyleSheet.create({
     content: {},
+    newFriendIcon: {
+        fontSize: 18,
+        color: '#c7c7c7'
+    },
     dtTop: {
         marginBottom: 20,
         borderBottomWidth: 1 / PixelRatio.get(),
