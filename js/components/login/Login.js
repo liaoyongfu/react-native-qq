@@ -34,7 +34,7 @@ class Login extends React.Component {
                 <View style={[styles.box]}>
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         <View>
-                            <FontAwesome name="wechat" size={30} color='#fff'/>
+                            <FontAwesome name="qq" size={30} color='#fff'/>
                         </View>
                         <View>
                             <Text style={[styles.title]}>QQ</Text>
