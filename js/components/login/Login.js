@@ -34,13 +34,13 @@ class Login extends React.Component {
                 <View style={[styles.box]}>
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         <View>
-                            <FontAwesome name="qq" size={30} color='#fff'/>
+                            <FontAwesome name="wechat" size={30} color='#fff'/>
                         </View>
                         <View>
                             <Text style={[styles.title]}>QQ</Text>
                         </View>
                     </View>
-                    <View>
+                    <View style={{marginTop: 80}}>
                         <TextInput underlineColorAndroid="transparent" style={styles.textInput} placeholder={'请输入用户名'} value={'893753543'}/>
                     </View>
                     <View>

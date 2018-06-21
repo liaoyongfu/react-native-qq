@@ -65,13 +65,26 @@ class CircleOfFriend extends React.Component {
         ]
     }
 
-    renderList({item, index}) {
+    renderList(data){
+        return (
+            <FlatList
+                data={data}
+                renderItem={(info) => this.renderItem({
+                    ...info,
+                    length: data.length
+                })}
+                keyExtractor={(item, index) => item.label}
+            />
+        )
+    }
+
+    renderItem({item, index, length}) {
         return (
             <View style={[styles.dtList]}>
                 <View style={[styles.dtListLeft]}>
                     <FontAwesome style={[styles.dtListLeftIcon, {color: item.color}]} name={item.iconName}/>
                 </View>
-                <View style={[styles.dtListRight]}>
+                <View style={[styles.dtListRight, index === length - 1 && styles.dtListRightLast]}>
                     <Text>{item.label}</Text>
                     <FontAwesome style={styles.newFriendIcon} name="angle-right"/>
                 </View>
@@ -100,18 +113,10 @@ class CircleOfFriend extends React.Component {
                     </View>
                 </View>
                 <View style={[PublicStyle.box, styles.dtListOne]}>
-                    <FlatList
-                        data={CircleOfFriend.list1}
-                        renderItem={this.renderList}
-                        keyExtractor={(item, index) => index}
-                    />
+                    {this.renderList(CircleOfFriend.list1)}
                 </View>
                 <View style={[PublicStyle.box, styles.dtListTwo]}>
-                    <FlatList
-                        data={CircleOfFriend.list2}
-                        renderItem={this.renderList}
-                        keyExtractor={(item, index) => index}
-                    />
+                    {this.renderList(CircleOfFriend.list2)}
                 </View>
             </View>
         );
@@ -157,6 +162,9 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         paddingRight: 15
     },
+    dtListRightLast:{
+        borderBottomWidth: 0
+    },
     dtListTwo: {
         borderTopWidth: 1 / PixelRatio.get(),
         borderTopColor: '#ddd',
@@ -187,7 +195,8 @@ const styles = StyleSheet.create({
     },
     dtTypeLabel: {
         color: '#000',
-        fontSize: 14
+        fontSize: 14,
+        marginTop: 4
     }
 });
 

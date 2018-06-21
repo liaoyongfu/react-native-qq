@@ -20,25 +20,41 @@ import SearchBar from '../../../public/SearchBar/SearchBar';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 
 class Message extends React.Component{
+    constructor(){
+        super();
+
+        this.state = {};
+        this.goChat = this.goChat.bind(this);
+        this.renderItem = this.renderItem.bind(this);
+    }
+
+    goChat(){
+        let { navigate } = this.props;
+
+        navigate('Chat');
+    }
+
     renderItem({item}) {
         return (
-            <View style={styles.itemBox}>
-                <View style={[styles.listIcon]}>
-                    <Image source={require('../../../../image/vator.jpg')}
-                           style={{width: 40, height: 40, borderRadius: 20}}/>
-                </View>
-                <View style={[styles.listContent]}>
-                    <View style={styles.listContentTop}>
-                        <Text style={styles.listContentTopText}>{item.label}</Text>
-                        <View style={styles.listContentTopTime}>
-                            <Text style={styles.listContentTopTimeText}>{item.time}</Text>
+            <TouchableWithoutFeedback onPress={this.goChat}>
+                <View style={styles.itemBox}>
+                    <View style={[styles.listIcon]}>
+                        <Image source={require('../../../../image/vator.jpg')}
+                            style={{width: 40, height: 40, borderRadius: 20}}/>
+                    </View>
+                    <View style={[styles.listContent]}>
+                        <View style={styles.listContentTop}>
+                            <Text style={styles.listContentTopText}>{item.label}</Text>
+                            <View style={styles.listContentTopTime}>
+                                <Text style={styles.listContentTopTimeText}>{item.time}</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <Text style={styles.listLastMessage} numberOfLines={1}>{item.lastMessage}</Text>
                         </View>
                     </View>
-                    <View>
-                        <Text style={styles.listLastMessage} numberOfLines={1}>{item.lastMessage}</Text>
-                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         );
     }
     render(){

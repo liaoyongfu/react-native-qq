@@ -22,7 +22,7 @@ import ListItem from '../components/ListItem';
 
 class Concacts extends React.Component{
     render(){
-        let { friendList, toggleExpand } = this.props;
+        let { friendList, toggleExpand, navigate } = this.props;
 
         return (
             <View style={[PublicStyle.flex, styles.content]}>
@@ -46,9 +46,9 @@ class Concacts extends React.Component{
                         <FlatList
                             data={friendList}
                             renderItem={({item}) => (
-                                <ListItem toggleExpand={toggleExpand} item={item}/>
+                                <ListItem toggleExpand={toggleExpand} item={item} navigate = {navigate}/>
                             )}
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => item.label}
                         />
                     </View>
                     <Text tabLabel='群'>群</Text>

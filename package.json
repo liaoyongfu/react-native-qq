@@ -1,29 +1,29 @@
 {
-	"name": "AwesomeProject",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"apsl-react-native-button": "^3.1.0",
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.47.2",
-		"react-native-elements": "^0.17.0",
-		"react-native-linear-gradient": "^2.3.0",
-		"react-native-scrollable-tab-view": "^0.8.0",
-		"react-native-simple-modal": "^7.0.0",
-		"react-native-vector-icons": "^4.4.0",
-		"react-navigation": "^1.0.0-beta.11"
-	},
-	"devDependencies": {
-		"babel-jest": "20.0.3",
-		"babel-preset-react-native": "3.0.1",
-		"jest": "20.0.4",
-		"react-test-renderer": "16.0.0-alpha.12"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "reactNativeQq",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "apsl-react-native-button": "^3.1.1",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-elements": "^0.19.1",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-simple-modal": "^9.0.1",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-jest": "23.0.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "23.1.0",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }

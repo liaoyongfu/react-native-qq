@@ -12,8 +12,9 @@ import {
     Button,
     FlatList,
     TouchableWithoutFeedback,
+    UIManager
 } from 'react-native';
-import {DrawerNavigator} from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation';
 import PublicStyle from '../../css';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -159,7 +160,8 @@ class HomeScreen extends React.Component {
                     lastMessage: '张三：加油加油',
                     time: '下午5:53'
                 }
-            ]
+            ],
+            showMsgTopMenu: false
         };
 
         this.toggleExpand = this.toggleExpand.bind(this);
@@ -193,18 +195,25 @@ class HomeScreen extends React.Component {
         });
     }
 
+    showMsgTopMenu(e){
+        //todo 如果能获取位置最好
+        e.stopPropagation();
+        this.setState({
+            showMsgTopMenu: true
+        });
+    }
+
     render() {
-        let {activeIndex, friendList, messageList} = this.state;
-        let {navigate} = this.props.navigation;
+        let {activeIndex, friendList, messageList, showMsgTopMenu} = this.state;
+        let {navigate, openDrawer} = this.props.navigation;
 
         return (
             <View style={[PublicStyle.flex, styles.body]}>
                 <StatusBar translucent={true}/>
                 {/* 头部 */}
-                <LinearGradient style={[styles.header]} colors={['#508dff', '#3ab8fe']} start={{x: 0, y: 0}}
-                                end={{x: 0.5, y: 0}}>
+                <LinearGradient style={[styles.header]} colors={['#508dff', '#3ab8fe']}>
                     <View style={[PublicStyle.vhCenter, styles.headerLeft]}>
-                        <TouchableWithoutFeedback onPress={() => navigate('DrawerOpen')}>
+                        <TouchableWithoutFeedback onPress={() => openDrawer()}>
                             <Image source={require('../../../image/vator.jpg')}
                                    style={{width: 30, height: 30, borderRadius: 15}}/>
                         </TouchableWithoutFeedback>
@@ -217,7 +226,11 @@ class HomeScreen extends React.Component {
                         </Text>
                     </View>
                     <View style={[PublicStyle.vhCenter, styles.headerRight]}>
-                        {activeIndex === 0 && <MaterialCommunityIcons name="plus" size={30} color="#fff"/>}
+                        {activeIndex === 0 && (
+                            <TouchableWithoutFeedback ref={plus => this.plus = plus} onPress={this.showMsgTopMenu.bind(this)}>
+                                <MaterialCommunityIcons name="plus" size={30} color="#fff"/>
+                            </TouchableWithoutFeedback>
+                        )}
                         {activeIndex === 1 && <Text style={{color: '#fff'}}>添加</Text>}
                         {activeIndex === 2 && <Text style={{color: '#fff'}}>更多</Text>}
                     </View>
@@ -226,6 +239,7 @@ class HomeScreen extends React.Component {
                 {activeIndex === 0 && (
                     <Message
                         messageList={messageList}
+                        navigate={navigate}
                     />
                 )}
                 {/* 联系人 */}
@@ -233,6 +247,7 @@ class HomeScreen extends React.Component {
                     <Concacts
                         friendList={friendList}
                         toggleExpand={this.toggleExpand.bind(this)}
+                        navigate={navigate}
                     />
                 )}
                 {/* 空间 */}
@@ -244,6 +259,45 @@ class HomeScreen extends React.Component {
                     activeIndex={activeIndex}
                     setActiveIndex={this.setActiveIndex.bind(this)}
                 />
+
+                {showMsgTopMenu && (
+                    <TouchableWithoutFeedback onPress={e => {
+                        this.setState({showMsgTopMenu: false})
+                    }}>
+                        <View style={styles.msgTopMenuBox}>
+                            <TouchableWithoutFeedback onPress={e => {
+                                e.stopPropagation();
+                            }}>
+                                <View style={styles.msgTopMenu}>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="twitch"/>
+                                        <Text style={styles.menuItemText}>创建群聊</Text>
+                                    </View>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="group"/>
+                                        <Text style={styles.menuItemText}>加好友/群</Text>
+                                    </View>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="qrcode"/>
+                                        <Text style={styles.menuItemText}>扫一扫</Text>
+                                    </View>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="wifi"/>
+                                        <Text style={styles.menuItemText}>面对面快传</Text>
+                                    </View>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="barcode"/>
+                                        <Text style={styles.menuItemText}>付款</Text>
+                                    </View>
+                                    <View style={styles.menuItem}>
+                                        <FontAwesome style={styles.menuItemIcon} name="camera"/>
+                                        <Text style={styles.menuItemText}>拍摄</Text>
+                                    </View>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback>
+                )}
             </View>
         );
     }
@@ -254,7 +308,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f9'
     },
     header: {
-        height: 50,
+        height: 40,
         flexDirection: 'row',
         backgroundColor: 'transparent'
     },
@@ -271,10 +325,45 @@ const styles = StyleSheet.create({
     addIcon: {
         color: '#fff',
         fontSize: 20
+    },
+    msgTopMenuBox: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.1)'
+    },
+    msgTopMenu: {
+        position: 'absolute',
+        top: 50,
+        right: 5,
+        minWidth: 150,
+        backgroundColor: '#fff',
+        borderRadius: 5
+    },
+    menuItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd'
+    },
+    menuItemIcon: {
+        fontSize: 18,
+        color: '#666',
+        minWidth: 20,
+        marginRight: 15
+    },
+    menuItemText: {
+        color: '#666'
     }
 });
 
-const HomePage = DrawerNavigator({
+const HomePage = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     }

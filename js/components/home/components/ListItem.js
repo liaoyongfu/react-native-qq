@@ -16,16 +16,26 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 let { width, height } = Dimensions.get('window');
 
-class ListItem extends React.Component{
-    render(){
-        let { item, toggleExpand } = this.props;
+class ListItem extends React.Component {
+    constructor() {
+        super();
+        this.itemContent = this.itemContent.bind(this);
+    }
+
+    // 进入聊天
+    itemContent (item) {
+        this.props.navigate('Person');
+    }
+
+    render () {
+        let { item, toggleExpand, navigate} = this.props;
 
         return (
             <View>
                 <TouchableWithoutFeedback onPress={() => toggleExpand(item.label)}>
                     <View style={styles.item}>
                         <View style={styles.itemAngleBox}>
-                            <FontAwesome style={styles.itemAngle} name={item.expanded ? 'angle-down' : 'angle-right'}/>
+                            <FontAwesome style={styles.itemAngle} name={item.expanded ? 'angle-down' : 'angle-right'} />
                         </View>
                         <Text style={styles.itemLabel}>{item.label}</Text>
                         <Text style={styles.itemCount}>{typeof item.onlineNum !== 'undefined' && `${item.onlineNum}/`}{item.countNum}</Text>
@@ -35,16 +45,18 @@ class ListItem extends React.Component{
                     <View style={styles.listBox}>
                         <FlatList
                             data={item.list}
-                            renderItem={({item, index}) => (
-                                <View style={[styles.list]}>
-                                    <Image style={styles.listVator} source={require('../../../../image/vator.jpg')}/>
-                                    <View style={[styles.listRight, index === 0 && styles.firstlistRight]}>
-                                        <Text style={styles.listRightLabel} numberOfLines={1}>{item.label}</Text>
-                                        <Text style={styles.listRightSign} numberOfLines={1}>[{item.loginType}]{item.sign}</Text>
+                            renderItem={({ item, index }) => (
+                                <TouchableWithoutFeedback onPress={() => this.itemContent(item)}>
+                                    <View style={[styles.list]}>
+                                        <Image style={styles.listVator} source={require('../../../../image/vator.jpg')} />
+                                        <View style={[styles.listRight, index === 0 && styles.firstlistRight]}>
+                                            <Text style={styles.listRightLabel} numberOfLines={1}>{item.label}</Text>
+                                            <Text style={styles.listRightSign} numberOfLines={1}>[{item.loginType}]{item.sign}</Text>
+                                        </View>
                                     </View>
-                                </View>
+                                </TouchableWithoutFeedback>
                             )}
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => item.label}
                         />
                     </View>
                 )}
@@ -80,9 +92,9 @@ const styles = StyleSheet.create({
         color: '#999'
     },
     listVator: {
-        width: 35,
-        height: 35,
-        borderRadius: 35,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         marginRight: 10
     },
     list: {

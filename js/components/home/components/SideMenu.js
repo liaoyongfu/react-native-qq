@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     qrcode: {
         alignItems: 'flex-end',
         paddingTop: 10,
+        backgroundColor: 'transparent',
         paddingRight: 15
     },
     vator: {
@@ -132,9 +133,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     vatorImage: {
-        width: 35,
-        height: 35,
-        borderRadius: 35,
+        width: 36,
+        height: 36,
+        borderRadius: 18,
         marginRight: 5,
         borderWidth: 2,
         borderColor: '#fff'
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         color: '#fff',
+        backgroundColor: 'transparent',
         fontSize: 28
     },
     level: {
@@ -155,10 +157,12 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     star: {
-        marginRight: 5
+        marginRight: 5,
+        backgroundColor: 'transparent'
     },
     signMes: {
         color: '#fff',
+        backgroundColor: 'transparent',
         fontSize: 14
     },
     middle: {
