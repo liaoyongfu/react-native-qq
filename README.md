@@ -4,6 +4,8 @@
 
 升级到0.55版本。
 
+> 主要在iphone下测试，android未详细测。
+
 ## 页面
 
 - 登陆页
@@ -22,3 +24,5 @@ cd react-native-qq
 yarn
 react-native run-ios
 ```
+
+> 注意：新版本xcode版本要`>=8`，不然会报错。
